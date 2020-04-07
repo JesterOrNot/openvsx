@@ -1,3 +1,13 @@
+/********************************************************************************
+ * Copyright (c) 2020 TypeFox and others
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ ********************************************************************************/
+
 import * as React from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -7,11 +17,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 export default function ErrorDialog(props: { title: React.ReactNode; message: React.ReactNode; }) {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const [open, setOpen] = React.useState(true);
 
   const handleClose = () => {
     setOpen(false);
@@ -19,9 +25,6 @@ export default function ErrorDialog(props: { title: React.ReactNode; message: Re
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open alert dialog
-      </Button>
       <Dialog
         open={open}
         onClose={handleClose}
