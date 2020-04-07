@@ -10,6 +10,8 @@
 
 import { utcToZonedTime } from "date-fns-tz";
 import { ErrorResponse } from "./server-request";
+import * as ErrorDialog from "./custom-mui-components/error"
+import * as ReactDOM from "react-dom";
 
 export function addQuery(url: string, queries: { key: string, value: string | number }[]) {
     const nonEmpty = queries.filter(q => !!q.value);
@@ -50,13 +52,13 @@ export function handleError(err?: Error | Partial<ErrorResponse>): void {
     if (err) {
         console.error(err);
         if (err instanceof Error)
-            alert(`An unexpected error occurred: ${err.message}`);
+            ReactDOM.render(ErrorDialog.default({ message: `An unexpected error occurred: ${err.message}`, title: "Error" }), document.getElementById('main'));
         else if (err.error && err.status && err.message)
-            alert(`The server responded with an error: ${err.error} (status ${err.status}, ${err.message})`);
+            ReactDOM.render(ErrorDialog.default({ message: `The server responded with an error: ${err.error} (status ${err.status}, ${err.message})`, title: "Error" }), document.getElementById('main'));
         else if (err.error && err.status)
-            alert(`The server responded with an error: ${err.error} (status ${err.status})`);
+            ReactDOM.render(ErrorDialog.default({ message: `The server responded with an error: ${err.error} (status ${err.status})`, title: "Error" }), document.getElementById('main'));
         else if (err.error)
-            alert(`The server responded with an error: ${err.error}`);
+            ReactDOM.render(ErrorDialog.default({ message: `The server responded with an error: ${err.error}`, title: "Error" }), document.getElementById('main'));
     }
 }
 
